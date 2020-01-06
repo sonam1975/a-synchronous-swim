@@ -8,6 +8,7 @@ const keypress = require('keypress');
 const validMessages = ['left', 'right', 'up', 'down'];
 const mappedChars = { space: ' ' }; // special mappings
 
+//returns boolean
 const isValidMessage = (message) => {
   return _.contains(validMessages, message);
 };
@@ -28,6 +29,7 @@ var message = ''; // a buffer to collect key presses
 
 module.exports.initialize = (callback) => {
 
+
   // setup an event handler on standard input
   process.stdin.on('keypress', (chunk, key) => {
     // ctrl+c should quit the program
@@ -37,10 +39,11 @@ module.exports.initialize = (callback) => {
 
     // check to see if the keypress itself is a valid message
     if (isValidMessage(key.name)) {
+      console.log(key.name)
       callback(key.name);
-      return; // don't do any more processing on this key
+      return ; // don't do any more processing on this key
     }
-    
+
     // otherwise build up a message from individual characters
     if (key && (key.name === 'return' || key.name === 'enter')) {
       // on enter, process the message
@@ -57,6 +60,7 @@ module.exports.initialize = (callback) => {
 
   });
 };
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Configuration -- do not modify /////////////////////////////////////////////
